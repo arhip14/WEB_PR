@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Біогазова станція «АгроЕнерго»</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm py-3">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="#">
+            <span class="text-success">🌱</span> «АГРОЕНЕРГО»
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto fw-medium align-items-center">
+                <li class="nav-item"><a class="nav-link px-3" href="#about">Технологія</a></li>
+                <li class="nav-item"><a class="nav-link px-3" href="#gallery">Галерея</a></li>
+                <li class="nav-item"><a class="nav-link px-3" href="#monitoring">Моніторинг</a></li>
+                <li class="nav-item"><a class="nav-link px-3" href="#analysis">Аналіз втрат</a></li>
+                <li class="nav-item"><a href="#map" class="btn btn-primary rounded-pill px-4 ms-lg-3 text-white border-0">Локація</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<header class="hero-section d-flex align-items-center justify-content-center text-center">
+    <div class="hero-overlay"></div>
+    <div class="container position-relative animate-up">
+        <div class="badge bg-white text-dark px-3 py-2 rounded-pill mb-4 shadow-sm">
+            <span class="text-success">♻️</span> Відновлювана енергетика
+        </div>
+        <h1 class="display-1 fw-black text-white mb-4">Енергія з природи. <br><span class="text-success">Сталий розвиток.</span></h1>
+        <p class="lead text-white-50 mx-auto mb-5" style="max-width: 800px;">Екологічно чисте виробництво електроенергії та тепла шляхом переробки органічних відходів на сучасній біогазовій станції.</p>
+        <div class="d-flex justify-content-center gap-3">
+            <a href="#about" class="btn btn-success btn-lg rounded-pill px-5 shadow-lg border-0">Про технологію</a>
+            <a href="#analysis" class="btn btn-outline-light btn-lg rounded-pill px-5">Аналіз втрат</a>
+        </div>
+    </div>
+</header>
+
+<section id="about" class="py-6 bg-white overflow-hidden">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6" data-aos="fade-right">
+                <h6 class="text-success fw-bold text-uppercase tracking-widest">Біоконверсія</h6>
+                <h2 class="display-5 fw-bold mb-4">Ефективна переробка органіки</h2>
+                <p class="text-muted fs-5 mb-4">Станція «АгроЕнерго» використовує технологію анаеробного зброджування біомаси. Це дозволяє генерувати стабільну електроенергію та отримувати добрива.</p>
+                <div class="list-check mb-4">
+                    <div class="d-flex align-items-center mb-2 text-dark fw-medium">✔️ <span class="ms-2">Екологічна утилізація відходів</span></div>
+                    <div class="d-flex align-items-center mb-2 text-dark fw-medium">✔️ <span class="ms-2">Когенерація (струм і тепло)</span></div>
+                    <div class="d-flex align-items-center mb-2 text-dark fw-medium">✔️ <span class="ms-2">Органічні добрива</span></div>
+                </div>
+            </div>
+            <div class="col-lg-6" data-aos="fade-left">
+                <div class="img-wrapper shadow-2xl">
+                    <img src="img/about.jpg" class="img-fluid rounded-5" alt="Facility">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="gallery" class="py-6 bg-light">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h6 class="text-success fw-bold text-uppercase tracking-widest">Візуалізація</h6>
+            <h2 class="display-5 fw-bold">Обладнання станції</h2>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="pro-gallery-card h-100">
+                    <div class="gallery-img-box">
+                        <img src="img/gallery-1.jpg" alt="Fermenters">
+                        <div class="gallery-overlay"><button class="btn btn-success rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#imgModal" data-bs-img="img/gallery-1.jpg">Переглянути</button></div>
+                    </div>
+                    <div class="p-4 bg-white">
+                        <h5 class="fw-bold mb-1">Ферментатори</h5>
+                        <p class="text-muted small mb-0">Резервуари для зброджування</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="pro-gallery-card h-100">
+                    <div class="gallery-img-box">
+                        <img src="img/gallery-2.jpg" alt="Unit">
+                        <div class="gallery-overlay"><button class="btn btn-success rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#imgModal" data-bs-img="img/gallery-2.jpg">Переглянути</button></div>
+                    </div>
+                    <div class="p-4 bg-white">
+                        <h5 class="fw-bold mb-1">Когенерація</h5>
+                        <p class="text-muted small mb-0">Газопоршневий генератор</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="pro-gallery-card h-100">
+                    <div class="gallery-img-box">
+                        <img src="img/gallery-3.jpg" alt="Control">
+                        <div class="gallery-overlay"><button class="btn btn-success rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#imgModal" data-bs-img="img/gallery-3.jpg">Переглянути</button></div>
+                    </div>
+                    <div class="p-4 bg-white">
+                        <h5 class="fw-bold mb-1">Диспетчерська</h5>
+                        <p class="text-muted small mb-0">Автоматизований контроль</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="monitoring" class="py-6 bg-white">
+    <div class="container text-center">
+        <h2 class="display-5 fw-bold mb-5">Моніторинг параметрів</h2>
+        <div class="controls mb-4">
+            <button id="updateBtn" class="btn btn-primary rounded-pill">🔄 Оновити</button>
+            <button id="autoUpdateBtn" class="btn btn-success rounded-pill">▶️ Автооновлення</button>
+        </div>
+        <div class="dashboard" id="monitoringDashboard"></div>
+        <div class="chart-container mt-5 shadow-sm"><canvas id="monitoringChart"></canvas></div>
+    </div>
+</section>
+
+<section id="analysis" class="py-6 bg-light">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h6 class="text-success fw-bold text-uppercase tracking-widest">Практична робота №3</h6>
+            <h2 class="display-5 fw-bold">Аналіз втрат енергії ⚡</h2>
+        </div>
+        <form id="form" class="row g-4 justify-content-center mb-5">
+            <div class="col-md-4">
+                <label class="form-label fw-semibold">Ділянка мережі</label>
+                <input name="section" class="form-control" placeholder="Напр: ТП-104" required>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label fw-semibold">Напруга (кВ)</label>
+                <input name="voltage" type="number" step="0.1" class="form-control" placeholder="10" required>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label fw-semibold">Довжина (км)</label>
+                <input name="length" type="number" step="0.01" class="form-control" placeholder="2.5" required>
+            </div>
+            <div class="col-md-2 d-flex align-items-end">
+                <button type="submit" class="btn btn-success w-100 rounded-pill py-3">Розрахувати</button>
+            </div>
+        </form>
+        <div id="result" class="text-center mb-5"></div>
+        <div id="history"></div>
+    </div>
+</section>
+
+<section id="map" class="py-6 bg-dark text-white">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-5 mb-5 mb-lg-0">
+                <h2 class="display-6 fw-bold mb-4">ЛОКАЦІЯ ОБ'ЄКТА</h2>
+                <p class="text-secondary mb-4">с. Зелений Гай, Полтавська область, Україна</p>
+                <div class="d-flex align-items-center gap-3">
+                    <div class="icon-circle bg-success text-white" style="width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">📍</div>
+                    <h6 class="mb-0 fw-bold">Промзона "Агро-1"</h6>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="map-wrapper rounded-5 overflow-hidden shadow-lg">
+                    <iframe src="https://maps.google.com/maps?q=Зелений+Гай,+Полтавська+область&t=&z=10&ie=UTF8&iwloc=&output=embed" width="100%" height="400" style="border:0;" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="py-5 bg-white text-center border-top">
+    <h3 class="fw-black mb-2 text-success">«АГРОЕНЕРГО»</h3>
+    <p class="text-muted small">© 2026 Біогазова генерація. НН ІАТЕ КПІ ТВ-41 🇺🇦</p>
+</footer>
+
+<div class="modal fade" id="imgModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content bg-transparent border-0"><div class="modal-body p-0"><img src="" id="modalImg" class="img-fluid rounded-4 shadow-lg"></div></div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="js/main.js"></script>
+<script src="js/monitoring.js"></script>
+<script>AOS.init({ duration: 1000, once: true });</script>
+<script src="js/script.js"></script>
+</body>
+</html>
