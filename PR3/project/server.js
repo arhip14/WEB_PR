@@ -23,15 +23,13 @@ function writeData(data) {
     fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
 }
 
-app.get('/api/losses', (req, res) => res.json(readData()));
+app.get('/api/losses', (req, res) => {
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.json(readData());
+});
 
 app.post('/api/losses', (req, res) => {
     const { section, voltage, length } = req.body;
-
-    if (!section || !voltage || !length || voltage <= 0 || length <= 0) {
-        return res.status(400).json({ success: false, message: "Некоректні дані" });
-    }
-
     const power = 500;
     const lossValue = ((power * parseFloat(length)) / (parseFloat(voltage) * 10)).toFixed(2);
 
@@ -47,15 +45,17 @@ app.post('/api/losses', (req, res) => {
     const data = readData();
     data.push(newEntry);
     writeData(data);
-
     res.status(201).json(newEntry);
 });
 
 app.delete('/api/losses/:id', (req, res) => {
+    const idToDelete = req.params.id;
     let data = readData();
-    data = data.filter(item => item.id !== req.params.id);
-    writeData(data);
+
+    const newData = data.filter(item => String(item.id) !== String(idToDelete));
+
+    writeData(newData);
     res.json({ success: true });
 });
 
-app.listen(PORT, () => console.log(`Сервер: http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`Сервер працює: http://localhost:${PORT}`));

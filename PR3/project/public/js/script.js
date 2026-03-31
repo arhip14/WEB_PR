@@ -4,7 +4,7 @@ const historyDiv = document.getElementById('history');
 
 async function loadHistory() {
     try {
-        const response = await fetch('/api/losses');
+        const response = await fetch(`/api/losses?t=${Date.now()}`);
         const data = await response.json();
 
         if (data.length === 0) {
@@ -32,7 +32,7 @@ async function loadHistory() {
                                 <td>${item.length} км</td>
                                 <td><span class="loss-badge" style="background: ${item.loss > 20 ? '#e74c3c' : '#2ecc71'}">${item.loss}%</span></td>
                                 <td>
-                                    <button onclick="deleteEntry('${item.id}')" class="btn btn-sm btn-outline-danger">🗑️</button>
+                                    <button onclick="deleteEntry('${item.id}')" class="btn btn-sm btn-outline-danger border-0">🗑️</button>
                                 </td>
                             </tr>
                         `).join('')}
@@ -40,22 +40,30 @@ async function loadHistory() {
                 </table>
             </div>
         `;
-    } catch (error) { console.error(error); }
+    } catch (error) { console.error("Помилка завантаження:", error); }
 }
 
 async function deleteEntry(id) {
     if (!confirm('Видалити цей запис?')) return;
-    await fetch(`/api/losses/${id}`, { method: 'DELETE' });
-    loadHistory();
+
+    try {
+        const res = await fetch(`/api/losses/${id}`, {
+            method: 'DELETE'
+        });
+
+        if (res.ok) {
+            await loadHistory();
+        }
+    } catch (err) {
+        console.error("Помилка видалення:", err);
+    }
 }
 
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const payload = Object.fromEntries(new FormData(form));
     const submitBtn = form.querySelector('button');
-
     submitBtn.disabled = true;
-    submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
 
     try {
         const res = await fetch('/api/losses', {
@@ -64,22 +72,13 @@ form.addEventListener('submit', async (e) => {
             body: JSON.stringify(payload)
         });
 
-        if (res.status === 400) throw new Error("Некоректні дані");
-
-        const json = await res.json();
-        resultDiv.innerHTML = `
-            <div class="alert alert-success border-0 shadow-lg animate-up d-inline-block">
-                <strong>Успіх!</strong> Для ${json.section} втрати: ${json.loss}%
-            </div>
-        `;
-        form.reset();
-        loadHistory();
-    } catch (err) {
-        resultDiv.innerHTML = `<div class="alert alert-danger">${err.message}</div>`;
-    } finally {
-        submitBtn.disabled = false;
-        submitBtn.innerText = 'Розрахувати';
-    }
+        if (res.ok) {
+            resultDiv.innerHTML = `<div class="alert alert-success border-0 shadow animate-up d-inline-block">Розрахунок успішний</div>`;
+            form.reset();
+            await loadHistory();
+        }
+    } catch (err) { console.error(err); }
+    finally { submitBtn.disabled = false; }
 });
 
 document.addEventListener('DOMContentLoaded', loadHistory);
