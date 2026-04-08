@@ -1,0 +1,50 @@
+{
+  "dispatchData": {
+    "id": 10,
+    "name": "Головний диспетчерський центр АгроЕнерго",
+    "monitoredObjects": 12,
+    "totalGeneration": 590.5,
+    "totalLoad": 510.2,
+    "frequency": 49.99,
+    "systemBalance": 80.3,
+    "alarmCount": 4,
+    "operatorCount": 4
+  },
+  "objectsList": [
+    {
+      "id": 101,
+      "name": "Біогазова установка №1",
+      "status": "offline",
+      "load": 250
+    },
+    {
+      "id": 102,
+      "name": "Сонячна панель",
+      "status": "online",
+      "load": 120
+    },
+    {
+      "id": 103,
+      "name": "Вітрогенератор А1",
+      "status": "offline",
+      "load": 0
+    }
+  ],
+  "objects": [
+    {
+      "id": 101,
+      "name": "Біогазова установка №1",
+      "status": "online"
+    },
+    {
+      "id": 102,
+      "name": "Сонячна панель (Південь)",
+      "status": "online"
+    },
+    {
+      "id": 103,
+      "name": "Вітрогенератор А1",
+      "status": "online"
+    }
+  ]
+}
