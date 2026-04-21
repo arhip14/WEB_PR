@@ -1,0 +1,54 @@
+[
+  {
+    "id": 1776785419164,
+    "email": "kruvdyk1503@gmail.com",
+    "password": "$2b$10$XQ4fVVz5W/06hjPi6dUe0e2oG46VEhWYrAl/82.5stf0vizqYOq3y",
+    "name": "Архип Кривдюк",
+    "role": "network_admin"
+  },
+  {
+    "id": 1776786593743,
+    "email": "kruvdyk11503@gmail.com",
+    "password": "$2b$10$/oZ5rTuCjrr2wzdaVbSk6uPAnmWSQ540bJgC7I7p/12dGsr/Ub2.K",
+    "name": "dsds",
+    "role": "network_admin"
+  },
+  {
+    "id": 1776787472253,
+    "email": "a@gmail.com",
+    "password": "$2b$10$TU4llwk7i9duPkn40MznpOya/UOdjhA.8pqzy0Nd2FCcE2qq50ya6",
+    "name": "вывыв",
+    "role": "driver"
+  },
+  {
+    "id": 1776787499765,
+    "email": "a1@gmail.com",
+    "password": "$2b$10$IdIxglDwmci6YDw8ZM8MPesY6qJX7cH8IrBsBj6Vl.KY1eClkn7ti",
+    "name": "aaa",
+    "role": "driver"
+  },
+  {
+    "id": 1776787534999,
+    "email": "kruvdyk150307@gmail.com",
+    "password": "$2b$10$HBFUFfRp3tTmoaczdGh2puQ3Ozg8RsNBSsC2KSrNffJ.jD/0ICpVW",
+    "name": "fjf",
+    "role": "driver",
+    "balance": 1234
+  },
+  {
+    "id": 1776790535482,
+    "email": "kruvdyk15030@gmail.com",
+    "password": "$2b$10$BV8q.kICYqayOrK9kKCkreuWLdGNipmJg27AMsMtDGtVZN6ertWzm",
+    "name": "віа",
+    "role": "station_operator",
+    "balance": 1000
+  },
+  {
+    "id": 1776791481625,
+    "email": "kruvdyk150308@gmail.com",
+    "password": "$2b$10$6S1c8pRdxcFWT6AbZSWqqenDK34ntOEZf8pWFR5gItx51cDpAE2Ga",
+    "name": "вівів",
+    "role": "network_admin",
+    "balance": 1000
+  }
+]

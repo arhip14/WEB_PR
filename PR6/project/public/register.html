@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Реєстрація — АгроЕнерго</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        body { background: #f8f9fa; font-family: 'Inter', sans-serif; height: 100vh; display: flex; align-items: center; }
+        .auth-card { max-width: 450px; width: 100%; padding: 40px; border-radius: 30px; border: none; box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+        .btn-success { background: #198754; border: none; border-radius: 50px; padding: 12px; font-weight: 600; }
+        .form-control { border-radius: 15px; padding: 12px; border: 1px solid #eee; }
+    </style>
+</head>
+<body>
+<div class="container d-flex justify-content-center">
+    <div class="card auth-card bg-white">
+        <h2 class="fw-bold text-center mb-4" style="font-family: 'Montserrat';">Створити <span class="text-success">акаунт</span></h2>
+        <form id="registerForm">
+            <div class="mb-3">
+                <label class="form-label small fw-bold">ПОВНЕ ІМ'Я</label>
+                <input type="text" name="name" class="form-control" placeholder="Архіп Кривдюк" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label small fw-bold">EMAIL</label>
+                <input type="email" name="email" class="form-control" placeholder="email@example.com" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label small fw-bold">ПАРОЛЬ</label>
+                <input type="password" name="password" class="form-control" placeholder="Мінімум 8 символів" required>
+            </div>
+            <div class="mb-4">
+                <label class="form-label small fw-bold">ВАША РОЛЬ У МЕРЕЖІ</label>
+                <select name="role" class="form-select" style="border-radius: 15px; padding: 12px;">
+                    <option value="driver">Водій електромобіля</option>
+                    <option value="station_operator">Оператор станції</option>
+                    <option value="network_admin">Адміністратор мережі</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-success w-100 mb-3">Зареєструватися</button>
+            <p class="text-center small">Вже маєте акаунт? <a href="/landing.html" class="text-success fw-bold text-decoration-none">Увійти</a></p>
+        </form>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.getElementById('registerForm').onsubmit = async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData.entries());
+
+        const response = await fetch('/auth/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+            Swal.fire('Успіх!', 'Ви зареєстровані. Тепер увійдіть.', 'success')
+                .then(() => window.location.href = '/landing.html');
+        } else {
+            Swal.fire('Помилка', result.error || 'Дані введено некоректно', 'error');
+        }
+    };
+</script>
+<script src="js/security.js"></script>
+</body>
+</html>

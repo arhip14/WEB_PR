@@ -1,0 +1,65 @@
+[
+  {
+    "id": "PAY-1776787887160",
+    "user": "kruvdyk150307@gmail.com",
+    "amount": "100",
+    "status": "completed",
+    "compliance": "PCI-DSS"
+  },
+  {
+    "userId": 1776787534999,
+    "type": "minus",
+    "title": "Зарядка Bio-Energy Hub",
+    "amount": 50,
+    "date": "2026-04-21T16:46:42.721Z"
+  },
+  {
+    "userId": 1776787534999,
+    "type": "plus",
+    "title": "Повернення (скасування)",
+    "amount": 50,
+    "date": "2026-04-21T16:46:45.769Z"
+  },
+  {
+    "userId": 1776787534999,
+    "type": "plus",
+    "title": "Поповнення",
+    "amount": 13,
+    "date": "2026-04-21T16:46:49.293Z"
+  },
+  {
+    "userId": 1776787534999,
+    "type": "minus",
+    "title": "Зарядка undefined",
+    "amount": null,
+    "date": "2026-04-21T16:47:01.006Z"
+  },
+  {
+    "userId": 1776787534999,
+    "type": "plus",
+    "title": "Поповнення",
+    "amount": 1211,
+    "date": "2026-04-21T16:52:36.324Z"
+  },
+  {
+    "userId": 1776787534999,
+    "type": "minus",
+    "title": "Зарядка Uman Fast-Charge",
+    "amount": 50,
+    "date": "2026-04-21T16:55:20.319Z"
+  },
+  {
+    "userId": 1776787534999,
+    "type": "plus",
+    "title": "Повернення (скасування)",
+    "amount": 50,
+    "date": "2026-04-21T16:55:22.491Z"
+  },
+  {
+    "userId": 1776787534999,
+    "type": "minus",
+    "title": "Зарядка KPI Campus Eco",
+    "amount": 50,
+    "date": "2026-04-21T17:12:07.310Z"
+  }
+]

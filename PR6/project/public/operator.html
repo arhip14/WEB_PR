@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Панель Оператора — «АгроЕнерго»</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Montserrat:wght@800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        :root { --accent: #f1c40f; --dark: #1a1a1a; --danger: #ff4757; --success: #2ecc71; }
+        body { background: #f0f2f5; font-family: 'Inter', sans-serif; color: #1e293b; transition: background 0.5s ease; }
+
+        .op-card { border-radius: 28px; border: none; background: white; box-shadow: 0 4px 20px rgba(0,0,0,0.04); height: 100%; transition: transform 0.2s; }
+        .op-card:hover { transform: translateY(-5px); }
+
+        .hero-banner {
+            background: linear-gradient(135deg, #1a1a1a 0%, #334155 100%);
+            color: white; border-radius: 30px; padding: 40px; margin-bottom: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .status-pill { padding: 6px 16px; border-radius: 50px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+        .status-online { background: rgba(46, 204, 113, 0.1); color: var(--success); border: 1px solid var(--success); }
+
+        .emergency-zone { transition: background 0.3s ease, border 0.3s ease; }
+        .btn-stop {
+            width: 90px; height: 90px; border-radius: 50%; background: var(--danger);
+            border: 8px solid white; color: white; font-size: 30px;
+            box-shadow: 0 0 20px rgba(255, 71, 87, 0.4); transition: 0.3s;
+            cursor: pointer;
+        }
+        .btn-stop:hover { transform: scale(1.1); }
+        .btn-stop:active { transform: scale(0.9); }
+
+        .log-list { height: 300px; overflow-y: auto; padding-right: 10px; }
+        .log-item { background: #f8fafc; border-radius: 16px; padding: 12px 16px; margin-bottom: 10px; border-left: 5px solid var(--accent); animation: fadeIn 0.3s ease-in; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
+
+        .param-box { background: #f8fafc; border-radius: 20px; padding: 20px; margin-bottom: 15px; }
+        .progress { height: 12px; border-radius: 10px; background: #e2e8f0; }
+
+        .navbar-brand { font-family: 'Montserrat', sans-serif; letter-spacing: -1px; }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom py-3 mb-4">
+    <div class="container">
+        <a class="navbar-brand fw-bold text-success fs-3" href="/">🌱 АГРОЕНЕРГО</a>
+        <button onclick="handleLogout()" class="btn btn-outline-danger rounded-pill fw-bold px-4">ВИХІД</button>
+    </div>
+</nav>
+
+<div class="container pb-5">
+    <div class="hero-banner d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="fw-bold mb-2">Центр керування станцією 🛠️</h1>
+            <p class="opacity-75 mb-0">Моніторинг біогазової установки та систем розподілу енергії</p>
+        </div>
+        <div class="text-end">
+            <span class="status-pill status-online" id="main-status-badge"><span class="spinner-grow spinner-grow-sm me-1"></span> Система Online</span>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-4">
+            <div class="card op-card p-4">
+                <h5 class="fw-bold mb-4">Показники вузлів</h5>
+                <div class="param-box">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted">Навантаження</span>
+                        <strong id="load-val">85%</strong>
+                    </div>
+                    <div class="progress"><div class="progress-bar bg-warning" id="load-bar" style="width: 85%"></div></div>
+                </div>
+                <div class="param-box">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted">Температура</span>
+                        <strong class="text-danger" id="temp-val">62°C</strong>
+                    </div>
+                    <div class="progress"><div class="progress-bar bg-danger" id="temp-bar" style="width: 62%"></div></div>
+                </div>
+                <button onclick="runDiagnostics()" class="btn btn-dark w-100 py-3 rounded-pill fw-bold mt-3 shadow">ДІАГНОСТИКА СИСТЕМИ</button>
+            </div>
+        </div>
+
+        <div class="col-lg-5">
+            <div class="card op-card p-4">
+                <h5 class="fw-bold mb-4">Журнал подій</h5>
+                <div id="event-logs" class="log-list">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3">
+            <div class="card op-card p-4 emergency-zone text-center d-flex flex-column justify-content-center" id="power-control-card">
+                <div id="stop-ui">
+                    <h6 class="fw-bold text-danger mb-4">АВАРІЙНА ЗУПИНКА</h6>
+                    <button onclick="emergencyStop()" class="btn-stop">OFF</button>
+                    <p class="small text-muted mt-4">Миттєве припинення генерації</p>
+                </div>
+
+                <div id="start-ui" style="display: none;">
+                    <h6 class="fw-bold text-success mb-4">СИСТЕМА ЗУПИНЕНА</h6>
+                    <button onclick="systemStart()" class="btn-stop" style="background: var(--success); box-shadow: 0 0 20px rgba(46, 204, 113, 0.4);">ON</button>
+                    <p class="small text-muted mt-4">Натисніть для синхронізації з мережею</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card op-card p-4">
+                <div class="row align-items-center">
+                    <div class="col-md-3">
+                        <span class="text-muted small d-block">Вихідна потужність</span>
+                        <h2 class="fw-bold text-success m-0" id="power-display">42.5 кВт</h2>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="range" class="form-range" id="powerRange" min="0" max="100" value="85" oninput="updatePower(this.value)">
+                    </div>
+                    <div class="col-md-3 text-end">
+                        <button onclick="saveSettings()" class="btn btn-success rounded-pill px-5 fw-bold">ЗАСТОСУВАТИ ЛІМІТ</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    async function handleLogout() {
+        const res = await fetch('/auth/logout', { method: 'POST' });
+        if (res.ok) window.location.href = '/';
+    }
+
+    function updatePower(val) {
+        document.getElementById('power-display').innerText = (val * 0.5).toFixed(1) + " кВт";
+    }
+
+    async function sendCommand(cmd) {
+        try {
+            await fetch('/api/operator/command', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ command: cmd })
+            });
+            loadLogs();
+        } catch (err) {
+            console.error("Command error", err);
+        }
+    }
+
+    function runDiagnostics() {
+        Swal.fire({
+            title: 'Аналіз вузлів...',
+            html: 'Перевірка тиску біогазу та стану інверторів',
+            timer: 2000,
+            timerProgressBar: true,
+            showConfirmButton: false,
+            didOpen: () => Swal.showLoading()
+        }).then(async () => {
+            await sendCommand("Запущено повну діагностику систем");
+            Swal.fire('Успіх', 'Всі системи в межах норми (OK)', 'success');
+        });
+    }
+
+    async function emergencyStop() {
+        const result = await Swal.fire({
+            title: 'ВИМКНУТИ СТАНЦІЮ?',
+            text: "Генерація буде повністю припинена!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#ff4757',
+            confirmButtonText: 'ТАК, ЗУПИНИТИ',
+            cancelButtonText: 'ВІДМІНА'
+        });
+
+        if (result.isConfirmed) {
+            await sendCommand("🚨 КРИТИЧНА ЗУПИНКА СИСТЕМИ (Manual)");
+
+            document.getElementById('stop-ui').style.display = 'none';
+            document.getElementById('start-ui').style.display = 'block';
+            document.getElementById('power-control-card').style.background = '#fff1f2';
+            document.getElementById('power-control-card').classList.add('emergency-zone');
+            document.body.style.background = "#ffdce0";
+
+            document.getElementById('main-status-badge').innerHTML = 'OFFLINE';
+            document.getElementById('main-status-badge').className = 'status-pill bg-danger text-white';
+
+            Swal.fire('ЗУПИНЕНО', 'Станція перейшла в безпечний режим', 'error');
+        }
+    }
+
+    async function systemStart() {
+        const result = await Swal.fire({
+            title: 'ЗАПУСТИТИ ГЕНЕРАЦІЮ?',
+            text: "Система почне синхронізацію з енергомережею",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#2ecc71',
+            confirmButtonText: 'ТАК, ЗАПУСК'
+        });
+
+        if (result.isConfirmed) {
+            Swal.fire({
+                title: 'Запуск...',
+                html: 'Синхронізація фаз та запуск біореактора',
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: () => Swal.showLoading()
+            }).then(async () => {
+                await sendCommand("✅ СИСТЕМУ ЗАПУЩЕНО В РОБОТУ");
+                document.getElementById('stop-ui').style.display = 'block';
+                document.getElementById('start-ui').style.display = 'none';
+                document.getElementById('power-control-card').style.background = 'white';
+                document.getElementById('power-control-card').classList.remove('emergency-zone');
+                document.body.style.background = "#f0f2f5";
+                document.getElementById('main-status-badge').innerHTML = '<span class="spinner-grow spinner-grow-sm me-1"></span> Система Online';
+                document.getElementById('main-status-badge').className = 'status-pill status-online';
+
+                Swal.fire('АКТИВНО', 'Станція працює в штатному режимі', 'success');
+            });
+        }
+    }
+
+    async function saveSettings() {
+        const val = document.getElementById('powerRange').value;
+        const kw = (val * 0.5).toFixed(1);
+        await sendCommand(`Встановлено новий ліміт потужності: ${kw} кВт`);
+        Swal.fire('Оновлено', `Ліміт ${kw} кВт активовано`, 'success');
+    }
+
+    async function loadLogs() {
+        try {
+            const res = await fetch('/api/operator/stats');
+            const data = await res.json();
+            const container = document.getElementById('event-logs');
+            if (container && data.logs) {
+                container.innerHTML = data.logs.map(log => `
+                    <div class="log-item">
+                        <small class="text-muted fw-bold">${log.time}</small><br>
+                        <span>${log.event}</span>
+                    </div>
+                `).join('');
+            }
+        } catch (err) {
+            console.error("Logs load error", err);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        fetch('/auth/status')
+            .then(res => res.json())
+            .then(data => {
+                if (!data.authenticated || data.user.role !== 'station_operator') {
+                    window.location.href = '/';
+                } else {
+                    loadLogs();
+                    setInterval(loadLogs, 5000);
+                }
+            });
+    });
+</script>
+<script src="js/security.js"></script>
+</body>
+</html>
